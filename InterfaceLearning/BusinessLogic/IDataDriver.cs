@@ -1,7 +1,7 @@
 ﻿namespace BusinessLogic
 {
-    public class IDataDriver
+    public interface IDataDriver
     {
-
+        string GetName();
     }
 }
