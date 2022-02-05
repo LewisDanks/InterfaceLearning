@@ -22,15 +22,9 @@ namespace BusinessLogic
             return userStrings.Select(x =>
                 new User
                 {
-                    // Lewis Daniel Danks
-                    // 012345678901234567
-                    Forenames = x.Substring(0, x.LastIndexOf(' ')),
-                    Surname =   x.Substring(x.LastIndexOf(' ')+1)
-                    //,
-                    //Forenames = string.Join(' ', x.Split(' ').ToList().Where(y => y != x.Split(' ').Last())),
-                    //Surname = x.Split(' ').Last()
+                    Forenames   =   x[..x.LastIndexOf(' ')],
+                    Surname     =   x[(x.LastIndexOf(' ') + 1)..]
                 });
-
         }
     }
 }
