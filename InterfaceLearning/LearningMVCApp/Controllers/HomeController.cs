@@ -1,4 +1,5 @@
-﻿using LearningMVCApp.Models;
+﻿using BusinessLogic;
+using LearningMVCApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,21 @@ namespace LearningMVCApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IDataDriver dataDriver;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            dataDriver = new TextFileDataDriver();
         }
 
         public IActionResult Index()
         {
-            return View();
+            var model = new HomePageViewModel()
+            {
+                WelcomeMessage = $"Welcome to your new home {dataDriver.GetUsers().ToArray()[0]}"
+            };
+            return View(model);
         }
 
         public IActionResult Privacy()
