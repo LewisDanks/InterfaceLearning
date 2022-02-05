@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -19,13 +20,13 @@ namespace BusinessLogic
             connectionString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0}; Extended Properties=Excel 12.0;", fileName);
         }
         
-        public string GetName()
+        public IEnumerable<User> GetUsers()
         {
             var adapater = new OleDbDataAdapter("SELECT * FROM [Sheet1$]", connectionString);
             var ds = new DataSet();
             adapater.Fill(ds, "users");
             var data = ds.Tables["users"].AsEnumerable();
-            return data.Select(x => string.Concat(x.Field<string>("Forenames"), " ", x.Field<string>("Surname"))).First();
+            return data.Select(x => new User { Forenames = x.Field<string>("Forenames"), Surname = x.Field<string>("Surname") });
         }
     }
 }

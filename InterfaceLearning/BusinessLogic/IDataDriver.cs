@@ -1,7 +1,9 @@
-﻿namespace BusinessLogic
+﻿using BusinessLogic.Models;
+
+namespace BusinessLogic
 {
     public interface IDataDriver
     {
-        string GetName();
+        IEnumerable<User> GetUsers();
     }
 }
